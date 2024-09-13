@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from '../../core/models/Olympic';
+import { PieChartData } from '../../charts/PieChartData';
 
 @Component({
   selector: 'app-home',
@@ -10,10 +11,17 @@ import { Olympic } from '../../core/models/Olympic';
 })
 export class HomeComponent implements OnInit {
   public olympics$: Observable<Olympic[]> = of([]);
+  public chartData!: PieChartData[];
 
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
+    this.makeChartData();
+  }
+
+  makeChartData() {
+    const olympicData = this.olympics$.subscribe();
+    console.log(olympicData);
   }
 }

@@ -5,7 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+<<<<<<< Updated upstream
 import { PieChartComponent } from './components/pie-chart/pie-chart/pie-chart/pie-chart.component';
+=======
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ChartModule } from './charts/chart.module';
+>>>>>>> Stashed changes
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, NotFoundComponent],
@@ -13,7 +19,13 @@ import { PieChartComponent } from './components/pie-chart/pie-chart/pie-chart/pi
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+<<<<<<< Updated upstream
     PieChartComponent,
+=======
+    BrowserAnimationsModule,
+    NgxChartsModule,
+    ChartModule,
+>>>>>>> Stashed changes
   ],
   providers: [],
   bootstrap: [AppComponent],
