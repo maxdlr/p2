@@ -21,7 +21,7 @@ export class OlympicService {
         // can be useful to end loading state and let the user know something went wrong
         this.olympics$.next(null);
         return caught;
-      })
+      }),
     );
   }
 
