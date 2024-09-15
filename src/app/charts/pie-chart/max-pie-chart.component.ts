@@ -8,7 +8,8 @@ import { PieChartData } from '../PieChartData';
 })
 export class MaxPieChartComponent {
   @Input({ required: true }) data!: PieChartData[];
-  @Input() view: [number, number] = [800, 300];
+  @Input() view: [number, number] = [500, 500];
   @Input() animations!: boolean;
-  @Input() legendVBC = true;
+  @Input() legendVBC = false;
+  @Input() labels = true;
 }

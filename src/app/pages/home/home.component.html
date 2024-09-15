@@ -1,9 +1,10 @@
-<h2>Olympic games app</h2>
-<hr />
-<!--<p>{{ (olympics$ | async)?.length }} data loaded</p>-->
+<div class="text-center w-fit bg-blue-500 rounded-2xl p-3 mx-auto m-5">
+  <h1 class="text-3xl text-white">Medals per country</h1>
+</div>
 
-<!--<app-pie-chart />-->
-<app-max-pie-chart
-  [data]="makeChartData()"
-  [animations]="true"
-/>
+<div class="flex justify-center items-center">
+  <app-max-pie-chart
+    [data]="makeChartData()"
+    [animations]="false"
+  />
+</div>
