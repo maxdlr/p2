@@ -28,4 +28,18 @@ export class OlympicService {
   getOlympics() {
     return this.olympics$.asObservable();
   }
+
+  getOlympic(id: number) {
+    let foundOlympic: Olympic | null = null;
+
+    this.olympics$.subscribe((value) => {
+      for (const olympic of value) {
+        if (olympic.id === id) {
+          foundOlympic = olympic;
+        }
+      }
+    });
+
+    return foundOlympic;
+  }
 }
