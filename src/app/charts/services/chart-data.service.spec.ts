@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { OlympicToPieChartDataService } from './olympic-to-pie-chart-data.service';
+import { ChartDataService } from './chart-data.service';
 
 describe('PieChartDataFormatterService', () => {
-  let service: OlympicToPieChartDataService;
+  let service: ChartDataService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(OlympicToPieChartDataService);
+    service = TestBed.inject(ChartDataService);
   });
 
   it('should be created', () => {

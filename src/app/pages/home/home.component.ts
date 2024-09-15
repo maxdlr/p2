@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from '../../core/models/Olympic';
-import { OlympicToPieChartDataService } from '../../charts/services/olympic-to-pie-chart-data.service';
+import { ChartDataService } from '../../charts/services/chart-data.service';
 
 @Component({
   selector: 'app-home',
@@ -11,25 +11,28 @@ import { OlympicToPieChartDataService } from '../../charts/services/olympic-to-p
 })
 export class HomeComponent implements OnInit {
   public olympics$: Observable<Olympic[]> = of([]);
+  public chartDataService: ChartDataService = new ChartDataService();
 
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
-    this.makeChartData();
   }
 
-  makeChartData() {
-    const olympicData: Olympic[] = [];
-    this.olympics$.subscribe((value) => {
-      for (const olympic of value) {
-        olympicData.push(olympic);
-      }
-    });
+  public getPieChartData() {
+    return this.chartDataService.getPieChartData(this.olympics$);
+  }
 
-    const olympicToPieChartDataService: OlympicToPieChartDataService =
-      new OlympicToPieChartDataService(olympicData);
-
-    return olympicToPieChartDataService.olympicsToPieChartDataFormatter();
+  public getSubtitleData$() {
+    return [
+      {
+        title: 'Number of JOs',
+        value: this.chartDataService.getJOCount(this.olympics$),
+      },
+      {
+        title: 'Number of countries',
+        value: this.chartDataService.getCountryCount(this.olympics$),
+      },
+    ];
   }
 }

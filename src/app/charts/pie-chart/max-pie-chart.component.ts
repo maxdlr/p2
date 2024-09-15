@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { PieChartData } from '../PieChartData';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-max-pie-chart',
@@ -12,4 +13,13 @@ export class MaxPieChartComponent {
   @Input() animations!: boolean;
   @Input() legendVBC = false;
   @Input() labels = true;
+
+  constructor(private router: Router) {}
+
+  public selectCountry(event: { title: string; name: string; value: number }) {
+    console.log(event);
+    this.router.navigate([`details/${event.name}`]);
+  }
+
+  protected readonly alert = alert;
 }
