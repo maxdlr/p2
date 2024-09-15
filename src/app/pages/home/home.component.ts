@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from '../../core/models/Olympic';
 import { PieChartData } from '../../charts/PieChartData';
+import { OlympicToPieChartDataService } from '../../charts/services/olympic-to-pie-chart-data.service';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,8 @@ import { PieChartData } from '../../charts/PieChartData';
 })
 export class HomeComponent implements OnInit {
   public olympics$: Observable<Olympic[]> = of([]);
-  public chartData!: PieChartData[];
+  // public chartData!: PieChartData[];
+  public test = [{ name: 'soemthing', value: 2 }] as PieChartData[];
 
   constructor(private olympicService: OlympicService) {}
 
@@ -21,7 +23,16 @@ export class HomeComponent implements OnInit {
   }
 
   makeChartData() {
-    const olympicData = this.olympics$.subscribe();
-    console.log(olympicData);
+    const olympicData: Olympic[] = [];
+    this.olympics$.subscribe((value) => {
+      for (const olympic of value) {
+        olympicData.push(olympic);
+      }
+    });
+
+    const olympicToPieChartDataService: OlympicToPieChartDataService =
+      new OlympicToPieChartDataService(olympicData);
+
+    return olympicToPieChartDataService.olympicsToPieChartDataFormatter();
   }
 }

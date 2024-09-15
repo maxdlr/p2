@@ -1,14 +1,9 @@
 <h2>Olympic games app</h2>
 <hr />
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
+<!--<p>{{ (olympics$ | async)?.length }} data loaded</p>-->
 
-<<<<<<< Updated upstream
-<app-pie-chart />
-=======
-<!--<app-pie-chart-->
-<!--  [dataVBC]="olympics$"-->
-<!--/>-->
-
-
-
->>>>>>> Stashed changes
+<!--<app-pie-chart />-->
+<app-max-pie-chart
+  [data]="makeChartData()"
+  [animations]="true"
+/>

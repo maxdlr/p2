@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PieChartComponent } from './pie-chart.component';
+import { MaxPieChartComponent } from './max-pie-chart.component';
 
 describe('PieChartComponent', () => {
-  let component: PieChartComponent;
-  let fixture: ComponentFixture<PieChartComponent>;
+  let component: MaxPieChartComponent;
+  let fixture: ComponentFixture<MaxPieChartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PieChartComponent]
-    })
-    .compileComponents();
+      imports: [MaxPieChartComponent],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(PieChartComponent);
+    fixture = TestBed.createComponent(MaxPieChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
