@@ -19,5 +19,6 @@
   <app-max-pie-chart
     [data]="getPieChartData()"
     [animations]="false"
+    (memberSelect)="selectCountry($event)"
   />
 </div>

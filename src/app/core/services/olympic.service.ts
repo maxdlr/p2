@@ -29,17 +29,29 @@ export class OlympicService {
     return this.olympics$.asObservable();
   }
 
-  getOlympic(id: number) {
-    let foundOlympic: Olympic | null = null;
+  getOlympicByName(name: string): Olympic | null {
+    let foundOlympic!: Olympic | null;
 
     this.olympics$.subscribe((value) => {
       for (const olympic of value) {
-        if (olympic.id === id) {
+        if (olympic.country === name) {
           foundOlympic = olympic;
         }
       }
     });
 
     return foundOlympic;
+  }
+
+  getOlympicById(id: number): Olympic | null {
+    this.olympics$.subscribe((value): Olympic | null => {
+      for (const olympic of value) {
+        if (String(olympic.id) == String(id)) {
+          return olympic;
+        }
+      }
+      return null;
+    });
+    return null;
   }
 }

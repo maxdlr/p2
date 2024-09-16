@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { switchMap } from 'rxjs/operators';
 import { Olympic } from '../../core/models/Olympic';
 import { OlympicService } from '../../core/services/olympic.service';
 import { ActivatedRoute } from '@angular/router';
@@ -10,7 +9,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './details.component.scss',
 })
 export class DetailsComponent implements OnInit {
-  // Todo: implement conditional formatting dependent of route parameter
   selectedId!: number;
   country!: Olympic | null;
 
@@ -20,11 +18,15 @@ export class DetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.paramMap.pipe(
-      switchMap((params) => {
-        this.selectedId = Number(params.get('id'));
-        this.country = this.olympicService.getOlympic(this.selectedId);
-      }),
+    this.getOlympic();
+  }
+
+  getOlympic() {
+    this.selectedId = this.route.snapshot.params['id'];
+    //todo: this doesnt work.
+    console.log(
+      'gotten ?olympic: ',
+      this.olympicService.getOlympicById(this.selectedId),
     );
   }
 }

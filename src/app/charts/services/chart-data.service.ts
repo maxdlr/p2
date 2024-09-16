@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { Olympic } from '../../core/models/Olympic';
 import { Participation } from '../../core/models/Participation';
 import { Observable } from 'rxjs';
-import { PieChartData } from '../PieChartData';
+import { PicChartData } from '../ChartTypes';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChartDataService {
   public getPieChartData(olympicData: Observable<Olympic[]>) {
-    const pieChartData: PieChartData[] = [];
+    const pieChartData: PicChartData[] = [];
 
     olympicData.subscribe((value) => {
       for (const olympic of value) {
