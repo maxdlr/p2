@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailsComponent implements OnInit {
   selectedId!: number;
-  country!: Olympic | null;
+  olympic$!: Olympic | null;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,10 +23,12 @@ export class DetailsComponent implements OnInit {
 
   getOlympic() {
     this.selectedId = this.route.snapshot.params['id'];
-    //todo: this doesnt work.
+    // this.olympic$ = this.olympicService.getOlympicById(this.selectedId);
     console.log(
-      'gotten ?olympic: ',
+      'on details page with: ',
       this.olympicService.getOlympicById(this.selectedId),
     );
+    if (this.olympic$) return this.olympic$;
+    return null;
   }
 }

@@ -33,25 +33,20 @@ export class OlympicService {
     let foundOlympic!: Olympic | null;
 
     this.olympics$.subscribe((value) => {
-      for (const olympic of value) {
-        if (olympic.country === name) {
-          foundOlympic = olympic;
-        }
-      }
+      foundOlympic = value.filter(
+        (olympic: Olympic) => olympic.country === name,
+      )[0];
     });
 
     return foundOlympic;
   }
 
-  getOlympicById(id: number): Olympic | null {
-    this.olympics$.subscribe((value): Olympic | null => {
-      for (const olympic of value) {
-        if (String(olympic.id) == String(id)) {
-          return olympic;
-        }
-      }
-      return null;
+  getOlympicById(id: number) {
+    let foundOlympic!: Olympic | null;
+
+    this.olympics$.subscribe((value) => {
+      foundOlympic = value.filter((olympic: Olympic) => olympic.id === id)[0];
     });
-    return null;
+    return foundOlympic;
   }
 }
