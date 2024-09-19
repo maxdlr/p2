@@ -42,11 +42,11 @@ export class OlympicService {
   }
 
   getOlympicById(id: number) {
-    let foundOlympic!: Olympic | null;
+    // let foundOlympic!: Olympic | null;
 
-    this.olympics$.subscribe((value) => {
-      foundOlympic = value.filter((olympic: Olympic) => olympic.id === id)[0];
-    });
-    return foundOlympic;
+    // this.olympics$.subscribe((value) => {
+    //   foundOlympic = value.filter((olympic: Olympic) => olympic.id === id)[0];
+    // });
+    // return foundOlympic;
   }
 }
