@@ -1,6 +1,5 @@
 import { Component, Input, output } from '@angular/core';
 import { PicChartData, PieChartSelectEvent } from '../ChartTypes';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-max-pie-chart',
@@ -15,12 +14,7 @@ export class MaxPieChartComponent {
   @Input() labels = true;
   memberSelect = output<PieChartSelectEvent>();
 
-  constructor(private router: Router) {}
-
   public handleSelect(event: PieChartSelectEvent) {
     this.memberSelect.emit(event);
-    console.log('emitted:', event);
   }
-
-  protected readonly alert = alert;
 }

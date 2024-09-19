@@ -1,3 +1,10 @@
 <p>details works!</p>
-<p>Country: {{ olympic$ | json }}</p>
+<pre>Country: {{ olympic$ | json }}</pre>
+<pre>Country: {{ lineChartData.data | json }}</pre>
+
+<app-max-line-chart
+  [data]="lineChartData.data"
+  [xAxisLabel]="lineChartData.xAxisLabel"
+  [yAxisLabel]="lineChartData.yAxisLabel"
+/>
 

@@ -40,13 +40,4 @@ export class OlympicService {
 
     return foundOlympic;
   }
-
-  getOlympicById(id: number) {
-    // let foundOlympic!: Olympic | null;
-
-    // this.olympics$.subscribe((value) => {
-    //   foundOlympic = value.filter((olympic: Olympic) => olympic.id === id)[0];
-    // });
-    // return foundOlympic;
-  }
 }
