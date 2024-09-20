@@ -1,5 +1,9 @@
 import { Component, Input, output } from '@angular/core';
-import { PicChartData, PieChartSelectEvent } from '../ChartTypes';
+import {
+  PieChartData,
+  PieChartSelectEvent,
+  PieChartToolTip,
+} from '../ChartTypes';
 
 @Component({
   selector: 'app-max-pie-chart',
@@ -7,12 +11,13 @@ import { PicChartData, PieChartSelectEvent } from '../ChartTypes';
   styleUrl: './max-pie-chart.component.scss',
 })
 export class MaxPieChartComponent {
-  @Input({ required: true }) data!: PicChartData[];
-  @Input() view: [number, number] = [500, 500];
+  @Input({ required: true }) data!: PieChartData[];
   @Input() animations!: boolean;
-  @Input() legendVBC = false;
+  @Input() legend = false;
   @Input() labels = true;
   memberSelect = output<PieChartSelectEvent>();
+  @Input() legendTitle!: string;
+  @Input() toolTipText!: (value: PieChartToolTip) => string;
 
   public handleSelect(event: PieChartSelectEvent) {
     this.memberSelect.emit(event);

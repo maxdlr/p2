@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Olympic } from '../../core/models/Olympic';
 import { OlympicService } from '../../core/services/olympic.service';
 import { ActivatedRoute } from '@angular/router';
+import { LineChartSetup } from '../../charts/ChartTypes';
+import { Participation } from '../../core/models/Participation';
 
 @Component({
   selector: 'app-details',
@@ -9,13 +11,10 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './details.component.scss',
 })
 export class DetailsComponent implements OnInit {
-  selectedId!: number;
-  olympic$!: Olympic;
-  lineChartData!: {
-    data: { name: string; series: { name: string; value: number }[] }[];
-    xAxisLabel: string;
-    yAxisLabel: string;
-  };
+  public selectedId!: number;
+  public olympic$!: Olympic;
+  public lineChartSetup$!: LineChartSetup;
+  public subTitleData$!: { title: string; value: number }[];
 
   constructor(
     private route: ActivatedRoute,
@@ -25,51 +24,78 @@ export class DetailsComponent implements OnInit {
   ngOnInit() {
     this.selectedId = this.route.snapshot.params['id'];
     this.getOlympic();
-    this.setLineChartData();
-    console.log(this.lineChartData);
+    this.getLineChartSetup();
+    this.getSubtitleData();
   }
 
   public getOlympic(): void {
-    this.olympicService
-      .getOlympics()
-      .subscribe(
-        (value) =>
-          (this.olympic$ = value.filter(
-            (olympic: Olympic) => olympic.id == this.selectedId,
-          )[0]),
-      );
+    this.olympicService.getOlympics().subscribe((olympics: Olympic[]) => {
+      this.olympic$ = olympics.filter(
+        (olympic: Olympic) => olympic.id == this.selectedId,
+      )[0];
+    });
   }
 
-  public setLineChartData(): void {
-    this.lineChartData.data = [
-      {
-        name: 'Germany',
-        series: [
+  public getLineChartSetup(): void {
+    const setup: LineChartSetup = {
+      data: [
+        {
+          name: 'number of medals',
+          series: [],
+        },
+      ],
+      xAxisLabel: 'years',
+      yAxisLabel: 'count',
+    };
+
+    this.olympicService.getOlympics().subscribe((olympics: Olympic[]) => {
+      const olympic = olympics.filter(
+        (olympic: Olympic) => olympic.id == this.selectedId,
+      )[0];
+
+      if (olympic) {
+        olympic.participations.forEach((participation: Participation) => {
+          setup.data[0].series.push({
+            name: participation.year.toString(),
+            value: participation.athleteCount,
+          });
+        });
+
+        this.lineChartSetup$ = setup;
+      }
+    });
+  }
+
+  public getSubtitleData() {
+    this.olympicService.getOlympics().subscribe((olympics: Olympic[]) => {
+      let medals = 0;
+      let athletes = 0;
+
+      const olympic = olympics.filter(
+        (olympic: Olympic) => olympic.id == this.selectedId,
+      )[0];
+
+      if (olympic) {
+        olympic.participations.forEach((participation: Participation) => {
+          medals += participation.medalsCount;
+          athletes += participation.athleteCount;
+        });
+
+        this.subTitleData$ = [
           {
-            name: '2010',
-            value: 7300000,
+            title: 'Number of entries',
+            value: olympic.participations.length,
           },
           {
-            name: '2011',
-            value: 8940000,
-          },
-        ],
-      },
-      {
-        name: 'USA',
-        series: [
-          {
-            name: '2010',
-            value: 7870000,
+            title: 'Number of medals',
+            value: medals,
           },
           {
-            name: '2011',
-            value: 8270000,
+            title: 'Number of athletes',
+            value: athletes,
           },
-        ],
-      },
-    ];
-    this.lineChartData.xAxisLabel = 'years';
-    this.lineChartData.yAxisLabel = 'medals/participation';
+        ];
+      }
+    });
   }
 }
