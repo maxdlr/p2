@@ -1,6 +1,9 @@
-import { Component, Input } from '@angular/core';
-import { PieChartData } from '../PieChartData';
-import { Router } from '@angular/router';
+import { Component, Input, output } from '@angular/core';
+import {
+  PieChartData,
+  PieChartSelectEvent,
+  PieChartToolTip,
+} from '../ChartTypes';
 
 @Component({
   selector: 'app-max-pie-chart',
@@ -9,17 +12,14 @@ import { Router } from '@angular/router';
 })
 export class MaxPieChartComponent {
   @Input({ required: true }) data!: PieChartData[];
-  @Input() view: [number, number] = [500, 500];
   @Input() animations!: boolean;
-  @Input() legendVBC = false;
+  @Input() legend = false;
   @Input() labels = true;
+  memberSelect = output<PieChartSelectEvent>();
+  @Input() legendTitle!: string;
+  @Input() toolTipText!: (value: PieChartToolTip) => string;
 
-  constructor(private router: Router) {}
-
-  public selectCountry(event: { title: string; name: string; value: number }) {
-    console.log(event);
-    this.router.navigate([`details/${event.name}`]);
+  public handleSelect(event: PieChartSelectEvent) {
+    this.memberSelect.emit(event);
   }
-
-  protected readonly alert = alert;
 }

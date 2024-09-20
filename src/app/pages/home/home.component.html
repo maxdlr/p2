@@ -1,23 +1,17 @@
-<div class="text-center w-fit bg-blue-500 rounded-2xl p-3 mx-auto m-5">
-  <h1 class="text-3xl text-white">Medals per country</h1>
-</div>
+<app-title title="Medals per country"></app-title>
 
 <div class="flex justify-center items-center mx-5">
-  @for (data of getSubtitleData$(); track data.title) {
-    <div class="text-center w-fit rounded-2xl p-3 border-blue-500 border mx-2">
-      <p class="text-lg">
-        {{ data.title }}
-      </p>
-      <p class="text-xl font-bold">
-        {{ data.value }}
-      </p>
-    </div>
+  @for (data of subTitleData$; track data.title) {
+    <app-sub-title [data]="data"></app-sub-title>
   }
 </div>
 
 <div class="flex justify-center items-center">
   <app-max-pie-chart
-    [data]="getPieChartData()"
+    [data]="pieChartData"
     [animations]="false"
+    (memberSelect)="selectCountry($event)"
+    legendTitle="Countries"
+    [toolTipText]="toolTipText"
   />
 </div>
