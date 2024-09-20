@@ -1,0 +1,17 @@
+<a href="/" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full text-2xl">
+  ← Back
+</a>
+<app-title [title]="olympic$.country" />
+
+<div class="flex justify-center items-center mx-5">
+  @for (data of subTitleData$; track data.title) {
+    <app-sub-title [data]="data"></app-sub-title>
+  }
+</div>
+<div class="flex justify-center items-center">
+  <app-max-line-chart
+    [data]="lineChartSetup$.data"
+    [xAxisLabel]="lineChartSetup$.xAxisLabel"
+    [yAxisLabel]="lineChartSetup$.yAxisLabel"
+  />
+</div>

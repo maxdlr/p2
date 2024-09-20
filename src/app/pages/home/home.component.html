@@ -1,3 +1,17 @@
-<h2>Olympic games app</h2>
-<hr />
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
+<app-title title="Medals per country"></app-title>
+
+<div class="flex justify-center items-center mx-5">
+  @for (data of subTitleData$; track data.title) {
+    <app-sub-title [data]="data"></app-sub-title>
+  }
+</div>
+
+<div class="flex justify-center items-center">
+  <app-max-pie-chart
+    [data]="pieChartData"
+    [animations]="false"
+    (memberSelect)="selectCountry($event)"
+    legendTitle="Countries"
+    [toolTipText]="toolTipText"
+  />
+</div>
