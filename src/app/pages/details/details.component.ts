@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Olympic } from '../../core/models/Olympic';
 import { OlympicService } from '../../core/services/olympic.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from "@angular/router";
 import { LineChartSetup } from '../../charts/ChartTypes';
 import { Participation } from '../../core/models/Participation';
 
@@ -19,6 +19,7 @@ export class DetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private olympicService: OlympicService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -29,10 +30,11 @@ export class DetailsComponent implements OnInit {
   }
 
   public getOlympic(): void {
-    this.olympicService.getOlympics().subscribe((olympics: Olympic[]) => {
+    this.olympicService.getOlympics().subscribe(async (olympics: Olympic[]) => {
       this.olympic$ = olympics.filter(
         (olympic: Olympic) => olympic.id == this.selectedId,
       )[0];
+      if (!this.olympic$) await this.router.navigate(['not-found'])
     });
   }
 
