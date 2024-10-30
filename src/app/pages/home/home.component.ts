@@ -95,13 +95,13 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  public selectCountry(event: PieChartSelectEvent) {
+  public async selectCountry(event: PieChartSelectEvent) {
     const olympic: Olympic | null = this.olympicService.getOlympicByName(
       event.name,
     );
 
     if (olympic) {
-      this.router.navigate([`details/${olympic.id}`]);
+      await this.router.navigate([`details/${olympic.id}`]);
     }
   }
 }
